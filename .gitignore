@@ -1,0 +1,9 @@
+**/Makefile
+**/CMakeFiles
+**/CMakeCache.txt
+**/*Test*
+bin
+**/cmake_install.cmake
+lib
+Kraken*
+*_dep*
