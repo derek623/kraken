@@ -189,7 +189,14 @@ class OrderBook
             //Remove the order from the queue in the Level
             Level& l = itr->second;
             l.orderQueue.erase(std::remove(l.orderQueue.begin(), l.orderQueue.end(), order), l.orderQueue.end());            
-            reduce(order->side, order->qty, order->price);
+            //Fix the aggregatedQty
+            if(order->qty <= l.aggregatedQty)
+                l.aggregatedQty -= order->qty;
+            else
+                l.aggregatedQty = 0;
+            
+            if(l.aggregatedQty <= 0)
+                book.erase(itr);
 
             //Generate the Cancel Ack
             Ack a;            
@@ -204,26 +211,6 @@ class OrderBook
 
             return result;
         }       
-
-        void reduce(Side side, const uint64_t qty, const int32_t price)
-        {
-            auto& book = Side::Buy == side ? _buy : _sell;
-            int32_t newPrice = Side::Buy == side ? price : -price; //flip the price for sell order
-
-            auto itr = book.find(newPrice);
-            if(book.end() == itr)
-                return; // flat_map max entry is smaller than max of uint64_t
-
-            Level& l = itr->second;
-            if(qty <= l.aggregatedQty)
-                l.aggregatedQty -= qty;
-            else
-                l.aggregatedQty = 0;
-            
-            if(l.aggregatedQty <= 0)
-                book.erase(itr);
-            
-        }
 
         void flush()
         {
