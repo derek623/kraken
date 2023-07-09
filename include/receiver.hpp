@@ -12,7 +12,7 @@ using boost::asio::ip::udp;
 class Receiver {
     public:
         Receiver(boost::asio::io_service& io_service, MsgQueue& msg_queue)
-            : _socket{io_service, udp::endpoint(udp::v4(), 1111)}, _msg_queue{msg_queue}
+            : _socket{io_service, udp::endpoint(udp::v4(), 35000)}, _msg_queue{msg_queue}
         {
             startReceive();
         }

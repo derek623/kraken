@@ -4,7 +4,9 @@ INSTRUCTION
 
 1) Download and the unzip the tar file. Go the base directory of the project, then type "cmake . -DCMAKE_BUILD_TYPE=Release"
 2) Type "make"
-3) The binary is generated in the bin folder. You can run the binary from the base directory by running "./bin/Release/Kraken"
+3) 2 binaries are generated in the bin/Release folder:
+    - Kraken: The orderbook server. You can run the binary from the base directory by running "./bin/Release/Kraken". It is listening on port 35000
+    - client: A simple program that takes a filename as command line parameter and send the content of the file line by line through UDP to port 35000. You can run it by typing "./bin/Release/client input.txt"
 
 ------------------------------
 Issues/Assumption

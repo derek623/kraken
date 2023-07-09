@@ -7,3 +7,6 @@ set(SOURCES main.cpp)
 
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_SYSTEM_LIBRARY} Threads::Threads)
+
+add_executable(client client.cpp)
+target_link_libraries(client ${Boost_SYSTEM_LIBRARY}  Threads::Threads)
