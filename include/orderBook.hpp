@@ -15,14 +15,14 @@ class OrderBook
         struct Level {
             uint64_t aggregatedQty = 0;
             int32_t price = 0;
-            Side buy_or_sell;
+            Side side;
             std::deque<std::shared_ptr<Order>> orderQueue;
 
-            Level(Side bs) : buy_or_sell{bs} {}
+            Level(Side side) : side{side} {}
             Level(const uint64_t q, const int32_t p) : aggregatedQty{q}, price{p}{}
 
             friend std::ostream &operator<<(std::ostream &out, const Level &level) {
-                int32_t newPrice = Side::Buy == level.buy_or_sell ? level.price : -level.price;
+                int32_t newPrice = Side::Buy == level.side ? level.price : -level.price;
                 out << "(" << newPrice << ", " << level.aggregatedQty << ")";
                 return out;
             }
