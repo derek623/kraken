@@ -28,7 +28,6 @@ class OrderBook
             }
         };
         OrderBook() : _bestBid{0}, _bestAsk{0}, _bestBidQty{0}, _bestAskQty{0} {}
-        constexpr static uint64_t INVALID_LEVEL = std::numeric_limits<uint64_t>::max();
 
         std::vector<Events> match(std::shared_ptr<Order> order)
         {
