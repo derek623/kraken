@@ -4,7 +4,7 @@ INSTRUCTION
 
 1) Download and the unzip the tar file. Go the base directory of the project, then type "cmake . -DCMAKE_BUILD_TYPE=Release"
 2) Type "make"
-3) The binary is generated in the bin folder. You can run the binary from the base directory by running "./bin/Kraken"
+3) The binary is generated in the bin folder. You can run the binary from the base directory by running "./bin/Release/Kraken"
 
 ------------------------------
 Issues/Assumption

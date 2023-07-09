@@ -2,12 +2,12 @@
 #define __EXCHANGE_HPP__
 
 
-#include <unordered_map>
 #include <vector>
 #include "orderBook.hpp"
 #include "displayHandler.hpp"
 #include <optional>
 #include <memory>
+#include <boost/unordered_map.hpp>
 
 class Exchange {
 
@@ -90,9 +90,11 @@ class Exchange {
         }        
 
     private:        
-        boost::container::flat_map<std::size_t, uint16_t> _hashcodeToOrderbookIdMap;
+        boost::unordered::unordered_map<std::size_t, uint16_t> _hashcodeToOrderbookIdMap;
         std::vector<OrderBook> _orderBooks;
-        boost::container::flat_map<uint32_t, boost::container::flat_map<uint32_t, std::shared_ptr<Order>>> _orderMap;
+        //For storing the userid, orderid mapping        
+        boost::unordered::unordered_map<uint32_t, boost::unordered::unordered_map<uint32_t, std::shared_ptr<Order>>> _orderMap;
+        //Queue for sendning events to the display handler
         EventQueue& _queue;
 };
 

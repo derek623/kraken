@@ -8,8 +8,6 @@
 
 typedef boost::lockfree::spsc_queue<std::string, boost::lockfree::capacity<1024> > MsgQueue;
 
-#define MAX_MSG_SIZE 100
-
 template<typename T>
 struct Message {    
     void print(){
