@@ -10,4 +10,5 @@ INSTRUCTION
 Issues/Assumption
 ------------------------------
 
-From the document, the cancel ack message and the new order ack message have the same format (A, userId, userOrderId). However, the cancel ack message in the output file for scenario 15 has a different format where it starts with the character "C" and has an extra value at the end. I am not sure which one is correct, but I stick with the format defined in the document, which means the cancel ack and new order ack has the same format.
+1) From the document, the cancel ack message and the new order ack message have the same format (A, userId, userOrderId). However, the cancel ack message in the output file for scenario 15 has a different format where it starts with the character "C" and has an extra value at the end. I am not sure which one is correct, but I stick with the format defined in the document, which means the cancel ack and new order ack has the same format.
+2) For the output of scenario 1, the second trade message (T, 2, 103, 1, 1, 10, 100) seems to have the buy/sell userid and userOrderId flipped

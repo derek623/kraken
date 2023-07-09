@@ -33,7 +33,8 @@ class OrderBook
         std::vector<Events> match(std::shared_ptr<Order> order)
         {
             std::vector<poly_T<Trade, Ack, TopOfBook>> result;
-            auto& book = Side::Buy == order->side ? _sell : _buy; //get the opposite book
+             //get the opposite book
+            auto& book = Side::Buy == order->side ? _sell : _buy;
             //If the book is empty, nothing to match
             if(!book.empty())
             {
@@ -43,7 +44,7 @@ class OrderBook
                 {
                     Level& l = itr->second;
                     //if it's a buy order, the level is a sell level, so need to flip the price
-                    const int32_t levelPrice = Side::Sell == order->side ? l.price : -l.price;                    
+                    const int32_t levelPrice = Side::Buy == order->side ? -l.price : l.price;                    
 
                     //only match with the correct price level for limit order
                     if(!order->isMarket && (Side::Buy == order->side && order->price < levelPrice || Side::Sell == order->side && order->price > levelPrice))                                            
@@ -99,8 +100,7 @@ class OrderBook
         {   
             //insert the new order ack
             std::vector<Events> result;         
-            Ack a;
-            a.type = 'A';
+            Ack a;            
             a.userId = order->userId;
             a.userOrderId = order->orderId;
             result.push_back(a);        
@@ -182,21 +182,22 @@ class OrderBook
             std::vector<Events> result;
             auto& book = Side::Buy == order->side ? _buy : _sell;
             int32_t newPrice = Side::Buy == order->side ? order->price : -order->price; //flip the price for sell order
-
+            //Find the book
             auto itr = book.find(newPrice);
             if(book.end() == itr)
                 return result;
-
+            //Remove the order from the queue in the Level
             Level& l = itr->second;
             l.orderQueue.erase(std::remove(l.orderQueue.begin(), l.orderQueue.end(), order), l.orderQueue.end());            
             reduce(order->side, order->qty, order->price);
 
-            Ack a;
-            a.type = 'C';
+            //Generate the Cancel Ack
+            Ack a;            
             a.userId = order->userId;
             a.userOrderId = order->orderId;
             result.push_back(a);
 
+            //Check and set best price
             auto event = setBestPrice(order->side);
             if(event.has_value())
                 result.push_back(*event);

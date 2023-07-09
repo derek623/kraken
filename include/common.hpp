@@ -32,12 +32,11 @@ struct Trade : Message<Trade>{
 };
 
 struct Ack : Message<Ack>{
-    char type;
     uint32_t userId;
     uint32_t userOrderId;
     void print()
     {
-        std::cout << type << ", "<< userId << ", " << userOrderId << std::endl;
+        std::cout << "A, "<< userId << ", " << userOrderId << std::endl;
     }
 };
 

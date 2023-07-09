@@ -14,10 +14,7 @@ int main() {
     EventQueue eventQueue;
     DisplayHandler dh(eventQueue);
     Exchange exchange(eventQueue);
-    Parser p(msgQueue, exchange);
-
-    
-    
+    Parser p(msgQueue, exchange);    
 
     auto receiverThread = std::thread([&]() {io_service.run();});
     auto parsingThread = std::thread([&]() {p.parse();});

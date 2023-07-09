@@ -35,8 +35,6 @@ class Exchange {
             auto results = ob.newOrder(order_itr->second);
             for (auto& msg : results)            
                 _queue.push(msg);
-            
-            //std::cout << ob << std::endl;
         }
        
         void deleteOrder(const uint32_t userId, const uint64_t orderId)

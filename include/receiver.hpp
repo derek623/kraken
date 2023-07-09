@@ -42,7 +42,7 @@ class Receiver {
 
         udp::socket _socket;
         udp::endpoint _remoteEndpoint;
-        std::array<char, 50> _recvBuffer;
+        std::array<char, 1024> _recvBuffer;
         MsgQueue& _msg_queue;
 };
 
